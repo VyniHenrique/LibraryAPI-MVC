@@ -15,12 +15,12 @@ import java.util.UUID;
 public class AutorRepositoryTest {
 
     @Autowired
-    AutorRepositoy repositoy;
+    AutorRepository repositoy;
 
     @Test
     public void salvarTest(){
         Autor autor = new Autor();
-        autor.setName("123User");
+        autor.setNome("123User");
         autor.setNacionalidade("Brasileira");
         autor.setDataNascimento(LocalDate.of(1980, Month.AUGUST, 30));
 
