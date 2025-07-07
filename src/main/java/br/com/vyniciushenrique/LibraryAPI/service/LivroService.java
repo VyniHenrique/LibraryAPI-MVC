@@ -3,6 +3,7 @@ package br.com.vyniciushenrique.LibraryAPI.service;
 import br.com.vyniciushenrique.LibraryAPI.model.GeneroLivro;
 import br.com.vyniciushenrique.LibraryAPI.model.Livro;
 import br.com.vyniciushenrique.LibraryAPI.repository.LivroRepository;
+import br.com.vyniciushenrique.LibraryAPI.validator.LivroValidator;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,17 @@ import static br.com.vyniciushenrique.LibraryAPI.repository.specs.LivroSpecs.*;
 public class LivroService {
 
     private final LivroRepository livroRepository;
+    private final LivroValidator livroValidator;
 
 
-    LivroService (LivroRepository livroRepository){
+    LivroService (LivroRepository livroRepository, LivroValidator livroValidator){
         this.livroRepository = livroRepository;
+        this.livroValidator = livroValidator;
 
     }
 
     public Livro salvar(Livro livro){
+        livroValidator.validar(livro);
         return livroRepository.save(livro);
     }
 
@@ -67,6 +71,7 @@ public class LivroService {
         if (livro.getId() == null){
             throw new IllegalArgumentException("Para atualizar, é necessario que o livro já esteja salvo na base");
         }
+        livroValidator.validar(livro);
         livroRepository.save(livro);
     }
 }
