@@ -4,6 +4,9 @@ import br.com.vyniciushenrique.LibraryAPI.model.GeneroLivro;
 import br.com.vyniciushenrique.LibraryAPI.model.Livro;
 import br.com.vyniciushenrique.LibraryAPI.repository.LivroRepository;
 import br.com.vyniciushenrique.LibraryAPI.validator.LivroValidator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +42,14 @@ public class LivroService {
         livroRepository.delete(livro);
     }
 
-    public List<Livro> pesquisar(String isbn, String titulo, String nomeAutor, GeneroLivro genero, Integer anoPublicacao){
+    public Page<Livro> pesquisar(
+            String isbn,
+            String titulo,
+            String nomeAutor,
+            GeneroLivro genero,
+            Integer anoPublicacao,
+            Integer pagina,
+            Integer tamanhoPagina){
 
         Specification<Livro> specs = (root, query, cb) -> cb.conjunction();
 
@@ -63,7 +73,9 @@ public class LivroService {
             specs = specs.and(nomeAutorLike(nomeAutor));
         }
 
-        return livroRepository.findAll(specs);
+        Pageable pageRequest = PageRequest.of(pagina, tamanhoPagina);
+
+        return livroRepository.findAll(specs, pageRequest);
     }
 
 
