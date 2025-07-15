@@ -2,7 +2,9 @@ package br.com.vyniciushenrique.LibraryAPI.service;
 
 import br.com.vyniciushenrique.LibraryAPI.model.GeneroLivro;
 import br.com.vyniciushenrique.LibraryAPI.model.Livro;
+import br.com.vyniciushenrique.LibraryAPI.model.Usuario;
 import br.com.vyniciushenrique.LibraryAPI.repository.LivroRepository;
+import br.com.vyniciushenrique.LibraryAPI.sercurity.SecurityService;
 import br.com.vyniciushenrique.LibraryAPI.validator.LivroValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,16 +23,19 @@ public class LivroService {
 
     private final LivroRepository livroRepository;
     private final LivroValidator livroValidator;
+    private final SecurityService securityService;
 
 
-    LivroService (LivroRepository livroRepository, LivroValidator livroValidator){
+    LivroService (LivroRepository livroRepository, LivroValidator livroValidator, SecurityService securityService){
         this.livroRepository = livroRepository;
         this.livroValidator = livroValidator;
-
+        this.securityService = securityService;
     }
 
     public Livro salvar(Livro livro){
         livroValidator.validar(livro);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        livro.setUsuario(usuario);
         return livroRepository.save(livro);
     }
 

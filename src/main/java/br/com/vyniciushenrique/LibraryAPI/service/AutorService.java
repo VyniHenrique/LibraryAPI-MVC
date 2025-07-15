@@ -2,8 +2,10 @@ package br.com.vyniciushenrique.LibraryAPI.service;
 
 import br.com.vyniciushenrique.LibraryAPI.exceptions.OperacaoNaoPermitidaException;
 import br.com.vyniciushenrique.LibraryAPI.model.Autor;
+import br.com.vyniciushenrique.LibraryAPI.model.Usuario;
 import br.com.vyniciushenrique.LibraryAPI.repository.AutorRepository;
 import br.com.vyniciushenrique.LibraryAPI.repository.LivroRepository;
+import br.com.vyniciushenrique.LibraryAPI.sercurity.SecurityService;
 import br.com.vyniciushenrique.LibraryAPI.validator.AutorValidator;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -19,15 +21,23 @@ public class AutorService {
     private final AutorRepository autorRepository;
     private final LivroRepository livroRepository;
     private final AutorValidator validator;
+    private final SecurityService securityService;
 
-    public AutorService(AutorRepository autorRepository, AutorValidator validator, LivroRepository livroRepository) {
+    public AutorService(AutorRepository autorRepository,
+                        AutorValidator validator,
+                        LivroRepository livroRepository,
+                        SecurityService securityService)
+    {
         this.autorRepository = autorRepository;
         this.livroRepository = livroRepository;
         this.validator = validator;
+        this.securityService = securityService;
     }
 
     public Autor salvar(Autor autor){
         validator.validar(autor);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        autor.setUsuario(usuario);
         return autorRepository.save(autor);
     }
 
