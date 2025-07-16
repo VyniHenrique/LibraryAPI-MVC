@@ -25,14 +25,16 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(configurer -> {
-                    configurer.loginPage("/login").permitAll();
-                })
+                .formLogin(Customizer.withDefaults())
+//                .formLogin(configurer -> {
+//                    configurer.loginPage("/login").permitAll();
+//                })
                 .authorizeHttpRequests(autorize -> {
                     autorize.requestMatchers(HttpMethod.POST, "/usuarios/**").permitAll();
 
                     autorize.anyRequest().authenticated();
                 })
+                .oauth2Login(Customizer.withDefaults())
                 .build();
     }
 
