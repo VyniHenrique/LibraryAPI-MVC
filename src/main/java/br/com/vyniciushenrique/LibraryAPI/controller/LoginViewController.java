@@ -16,6 +16,6 @@ public class LoginViewController {
     @GetMapping("/")
     @ResponseBody
     public String paginaInicial(Authentication authentication){
-        return "Olá" + authentication.getName();
+        return "Olá " + authentication.getName();
     }
 }

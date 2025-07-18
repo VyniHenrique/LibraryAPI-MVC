@@ -2,6 +2,7 @@ package br.com.vyniciushenrique.LibraryAPI.service;
 
 import br.com.vyniciushenrique.LibraryAPI.model.Usuario;
 import br.com.vyniciushenrique.LibraryAPI.repository.UsuarioRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,17 @@ public class UsuarioService {
     }
 
     public Optional<Usuario> obterPorLogin(String login){
+
+        Optional<Usuario> usuarioOptional = repository.findByLogin(login);
+        if (usuarioOptional.isEmpty()){
+            throw new UsernameNotFoundException("Usuário e/ou senha incorretos");
+        }
+
         return repository.findByLogin(login);
+    }
+
+    public Optional<Usuario> obterPorEmail(String email){
+        return repository.findByEmail(email);
     }
 
 

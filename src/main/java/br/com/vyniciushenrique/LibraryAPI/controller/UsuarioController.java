@@ -4,6 +4,7 @@ import br.com.vyniciushenrique.LibraryAPI.controller.dto.UsuarioDTO;
 import br.com.vyniciushenrique.LibraryAPI.controller.mappers.UsuarioMapper;
 import br.com.vyniciushenrique.LibraryAPI.model.Usuario;
 import br.com.vyniciushenrique.LibraryAPI.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrar(@RequestBody UsuarioDTO usuarioDTO){
+    public void cadastrar(@RequestBody @Valid UsuarioDTO usuarioDTO){
 
         var usuario = usuarioMapper.toEntity(usuarioDTO);
         usuarioService.salvar(usuario);

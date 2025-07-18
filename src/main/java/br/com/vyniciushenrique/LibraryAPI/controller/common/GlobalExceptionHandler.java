@@ -7,6 +7,7 @@ import br.com.vyniciushenrique.LibraryAPI.exceptions.OperacaoNaoPermitidaExcepti
 import br.com.vyniciushenrique.LibraryAPI.exceptions.RegistroDuplicadoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -60,6 +61,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErroResposta handleAccesDeniedException(AccessDeniedException e){
         return new ErroResposta(HttpStatus.FORBIDDEN.value(), "Acesso negado", List.of());
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErroResposta handleUsernameNotFoundException(UsernameNotFoundException e){
+        return new ErroResposta(HttpStatus.NOT_FOUND.value(), e.getMessage(), List.of());
     }
 
     @ExceptionHandler(RuntimeException.class)

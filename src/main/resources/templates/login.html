@@ -57,7 +57,7 @@
             <form method="post" th:action="@{/login}">
                 <div class="form-floating mb-3 position-relative">
                     <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-                    <label for="username">Endereço de e-mail</label>
+                    <label for="username">Username</label>
                 </div>
                 <div class="form-floating mb-3 position-relative">
                     <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Senha">
@@ -67,6 +67,11 @@
                     <button class="btn btn-primary btn-lg" type="submit">Login</button>
                 </div>
             </form>
+
+            <br />
+            <hr />
+
+            <a th:href="@{/oauth2/authorization/google}" class="btn btn-primary btn-lg">Entrar com o Google</a>
         </div>
     </div>
 </div>
