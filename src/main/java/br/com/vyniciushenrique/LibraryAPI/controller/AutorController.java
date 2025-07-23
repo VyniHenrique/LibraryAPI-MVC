@@ -4,15 +4,10 @@ package br.com.vyniciushenrique.LibraryAPI.controller;
 import br.com.vyniciushenrique.LibraryAPI.controller.dto.AutorDTO;
 import br.com.vyniciushenrique.LibraryAPI.controller.mappers.AutorMapper;
 import br.com.vyniciushenrique.LibraryAPI.model.Autor;
-import br.com.vyniciushenrique.LibraryAPI.model.Usuario;
-import br.com.vyniciushenrique.LibraryAPI.sercurity.SecurityService;
 import br.com.vyniciushenrique.LibraryAPI.service.AutorService;
-import br.com.vyniciushenrique.LibraryAPI.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;

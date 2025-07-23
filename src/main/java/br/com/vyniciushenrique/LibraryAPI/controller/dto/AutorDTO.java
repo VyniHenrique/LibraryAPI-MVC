@@ -18,8 +18,6 @@ public record AutorDTO(
         @Past(message = "Data de nascimento inválida")
         LocalDate dataNascimento,
 
-
-
         @NotBlank(message = "O campo 'nacionalidade' é obrigatorio")
         @Size(max = 50, min = 4, message = "Limite de caracteres excedido")
         String nacionalidade,
