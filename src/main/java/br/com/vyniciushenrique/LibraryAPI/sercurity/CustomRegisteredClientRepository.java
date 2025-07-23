@@ -1,6 +1,7 @@
-package br.com.vyniciushenrique.LibraryAPI.service;
+package br.com.vyniciushenrique.LibraryAPI.sercurity;
 
 import br.com.vyniciushenrique.LibraryAPI.model.Client;
+import br.com.vyniciushenrique.LibraryAPI.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
