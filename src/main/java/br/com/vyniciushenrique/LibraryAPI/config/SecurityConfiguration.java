@@ -1,5 +1,6 @@
 package br.com.vyniciushenrique.LibraryAPI.config;
 
+import br.com.vyniciushenrique.LibraryAPI.sercurity.JwtCustomAuthenticationFilter;
 import br.com.vyniciushenrique.LibraryAPI.sercurity.LoginSocialSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -23,7 +25,10 @@ public class SecurityConfiguration {
 
     @Bean
     @Order(2)
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, LoginSocialSuccessHandler successHandler) throws Exception{
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            LoginSocialSuccessHandler successHandler,
+            JwtCustomAuthenticationFilter jwtCustomAuthenticationFilter) throws Exception{
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
@@ -45,6 +50,7 @@ public class SecurityConfiguration {
                 })
                 .oauth2ResourceServer(oauth2RS ->
                         oauth2RS.jwt(Customizer.withDefaults()))
+                .addFilterAfter(jwtCustomAuthenticationFilter, BearerTokenAuthenticationFilter.class)
                 .build();
     }
 
