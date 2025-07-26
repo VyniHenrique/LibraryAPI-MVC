@@ -5,6 +5,7 @@ import br.com.vyniciushenrique.LibraryAPI.controller.dto.ErroResposta;
 import br.com.vyniciushenrique.LibraryAPI.exceptions.CampoInvalidoExeption;
 import br.com.vyniciushenrique.LibraryAPI.exceptions.OperacaoNaoPermitidaException;
 import br.com.vyniciushenrique.LibraryAPI.exceptions.RegistroDuplicadoException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,11 +19,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ErroResposta handleMethodArgumentNotValidExceptions(MethodArgumentNotValidException e){
+
+        log.error("Erro de validação {}", e.getMessage());
 
         List<FieldError> fieldError = e.getFieldErrors();
         List<ErroCampo> listaErroCampos = fieldError.stream().map(fe ->
@@ -72,6 +76,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErroResposta handleExeptionNaoTratada(RuntimeException e){
+
+        log.error("Erro inesperado", e);
+
         return new ErroResposta(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocorreu um erro inesperado", List.of());
     }
 

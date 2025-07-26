@@ -1,5 +1,6 @@
 package br.com.vyniciushenrique.LibraryAPI.controller.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Schema(name = "Autor")
 public record AutorDTO(
 
         @NotBlank(message = "O campo 'nome' é obrigatorio")
