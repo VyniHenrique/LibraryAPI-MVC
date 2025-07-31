@@ -1,6 +1,6 @@
 # Library API
 
-#### Essa API Rest é um projeto pessoal onde eu trabalho para desenvolver as minhas habilidades em alguns dos módulos do Spring Framework, além de aplicar os meus conhecimentos dos principios SOLID no desenvolvimento da API.
+#### Essa API Rest é um projeto pessoal onde eu trabalho para desenvolver as minhas habilidades em alguns dos módulos do Spring Framework como Spring Data JPA e Spring Security, além de aplicar os meus conhecimentos dos principios SOLID no desenvolvimento da API.
 
 ## Requisitos para executar a aplicação:
 - Java 21
