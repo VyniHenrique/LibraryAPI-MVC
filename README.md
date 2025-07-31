@@ -1,5 +1,7 @@
 # Library API
 
+#### Essa API Rest é um projeto pessoal onde eu trabalho para desenvolver as minhas habilidades em alguns dos módulos do Spring Framework, além de aplicar os meus conhecimentos dos principios SOLID no desenvolvimento da API.
+
 ## Requisitos para executar a aplicação:
 - Java 21
 - Maven 3.9.9
